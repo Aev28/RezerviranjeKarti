@@ -1,0 +1,120 @@
+﻿@model IEnumerable<ProektnaZadaca.Models.Time>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@if (User.IsInRole("Administrator"))
+{
+    <p style="margin-top: 20px; margin-left: 800px; margin-bottom: -15px; ">
+        <input type="button" value="Add a new flight" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Times")'" />
+    </p>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Search for flights:</h4>
+        <br />
+        @using (Html.BeginForm("SearchResults", "Times", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            <fieldset style="margin-left: 480px; display: inline-block; margin-top: 20px; width: 90%; ">
+                @for (int i = 0; i < 1; i++)
+                {
+                <div class="form-group">
+                    <label class="col-md-2">From: </label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ElementAt(i).fromLocation, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ElementAt(i).fromLocation, "", new { @class = "text-danger" })
+                        <br />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2">Destination: </label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ElementAt(i).dest, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ElementAt(i).dest, "", new { @class = "text-danger" })
+                        <br />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Date of departure: </label>
+                    <div class="col-md-10">
+                        <input type="date" name="departureDate" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.ElementAt(i).departureDate, "")
+                        <br />
+                    </div>
+                </div>
+                }
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-default" value="filter" style="margin-left: 575px; margin-top: -280px; " />
+                    </div>
+                </div>
+            </fieldset>
+        }
+
+    </div>
+
+    <table class="table" style=" width: 85%; margin-left: 250px; margin-bottom: 300px;">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Flight.flightName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fromLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dest)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.departureDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.depatureTime)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Flight.flightName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fromLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dest)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.departureDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.depatureTime)
+                </td>
+                <td>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            @Html.ActionLink("Edit |", "Edit", new { id = item.flightId }, new { @style = "color:black;" })}
+                        @Html.ActionLink("Details", "Details", new { id = item.flightId }, new { @style = "color:black;" })
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            @Html.ActionLink("| Delete", "Delete", new { id = item.flightId }, new { @style = "color:black;"})
+                        }
+                </td>
+            </tr>
+        }
+
+        @if (User.IsInRole("Administrator") || User.IsInRole("User"))
+        { 
+            <p style="margin-top: 285px; margin-left: 811px; margin-bottom: 40px;">
+                <input type="button" value="Book a flight" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Tickets")'" />
+            </p>
+        }
+
+        </table>

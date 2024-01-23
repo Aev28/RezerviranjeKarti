@@ -1,0 +1,60 @@
+﻿@model ProektnaZadaca.Models.Time
+
+@{
+    Layout = null;
+}
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div style="background: rgb(109,213,237); background: linear-gradient(180deg, rgba(109,213,237,1) 0%, rgba(33,147,176,1) 62%); height: 100%; padding-bottom: 753px; margin-top: -70px;background-repeat: no-repeat; background-attachment: fixed; ">
+    <h2>Details</h2>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Flight.flightName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Flight.flightName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.fromLocation)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.fromLocation)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.dest)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.dest)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.departureDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.departureDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.depatureTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.depatureTime)
+            </dd>
+
+        </dl>
+    </div>
+</div>

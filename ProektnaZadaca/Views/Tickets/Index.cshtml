@@ -1,0 +1,104 @@
+﻿@model IEnumerable<ProektnaZadaca.Models.Ticket>
+
+@{
+    ViewBag.Title = "Tickets";
+}
+
+<h2>Index</h2>
+
+@if (User.IsInRole("Administrator"))
+{
+        <p style="margin-top: 15px; margin-left: 800px; margin-bottom: 640px;">
+            <input type="button" value="Book a flight" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Tickets")'" />
+
+        </p>
+}
+@if (User.IsInRole("Administrator"))
+{
+<table class="table" style="margin-left: 250px; margin-bottom: 510px; width: 85%; margin-top: -600px">
+    @if (User.IsInRole("Administrator"))
+        {
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.flightName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Time.fromLocation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.destination)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateOfJourney)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nameAndSurname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isReturn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.package)
+        </th>
+        <th></th>
+    </tr>
+        }
+
+    @foreach (var item in Model)
+        {
+            if (User.IsInRole("Administrator"))
+            {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Flight.flightName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time.fromLocation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.destination)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateOfJourney)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nameAndSurname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isReturn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.package)
+        </td>
+        <td>
+                @if (User.IsInRole("Administrator"))
+                {
+                    @Html.ActionLink("Edit |", "Edit", new { id = item.ticketId }, new { @style = "color:black;" })
+                }
+                @if (User.IsInRole("Administrator"))
+                {
+                    @Html.ActionLink("Details", "Details", new { id = item.ticketId }, new { @style = "color:black;" })
+                }
+                @if (User.IsInRole("Administrator"))
+                {
+                    @Html.ActionLink("| Delete", "Delete", new { id = item.ticketId }, new { @style = "color:black;" })
+                }
+        </td>
+    </tr>
+            }
+        }
+
+</table>
+}

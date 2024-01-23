@@ -1,0 +1,86 @@
+﻿@model IEnumerable<ProektnaZadaca.Models.Time>
+
+@{
+    Layout = null;
+}
+
+@{
+    ViewBag.Title = "SearchResults";
+}
+
+<div style="background: rgb(109,213,237); background: linear-gradient(180deg, rgba(109,213,237,1) 0%, rgba(33,147,176,1) 62%); height: 100%; padding-bottom: 753px; margin-top: -70px;background-repeat: no-repeat; background-attachment: fixed; ">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <br />
+    <div style=" color: red; margin-left: 630px; margin-top: 50px;">
+        @ViewBag.ScheduleMessage
+    </div>
+    <br />
+    <h4 style="margin-left: 650px;">From : @ViewBag.fromLocation | Destination: @ViewBag.dest </h4>
+    <br />
+    @if (User.IsInRole("Administrator") || User.IsInRole("User"))
+    {
+        <p style="margin-top: 15px; margin-left: 720px; margin-bottom: 50px;">
+            <input type="button" value="Book a flight" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Tickets")'" />
+        </p>
+    }
+    <table class="table" style="width: 85%; margin-left: 150px; margin-bottom: 300px; ">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Flight.flightName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fromLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dest)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.departureDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.depatureTime)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Flight.flightName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fromLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dest)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.departureDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.depatureTime)
+                </td>
+                <td>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        @Html.ActionLink("Edit |", "Edit", new { id = item.flightId }, new { @style = "color:black;" })}
+                    @Html.ActionLink("Details", "Details", new { id = item.flightId }, new { @style = "color:black;" })
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        @Html.ActionLink("| Delete", "Delete", new { id = item.flightId }, new { @style = "color:black;" }) }
+                </td>
+            </tr>
+        }
+    </table>
+    <p style="margin-top: -260px; margin-left: 725px; margin-bottom: 55px;">
+        <input type="button" value="Back to list" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Times")'" />
+    </p>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+}
